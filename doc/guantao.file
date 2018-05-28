@@ -1,0 +1,47 @@
+https://www.myquant.cn/gm2/  可以下载回测客户端，获取历史数据
+http://www.360doc.com/content/16/0823/21/35919193_585428834.shtml  tick数据介绍
+https://www.myquant.cn/gm2/docs/api/python/  相关文档
+
+python示例：
+-----------------------------------
+from gmsdk.api import StrategyBase
+import numpy as np
+import matplotlib.pyplot as plot
+from sklearn import svm
+class Mystrategy(StrategyBase):
+    def __init__(self, *args, **kwargs):
+        super(Mystrategy, self).__init__(*args, **kwargs)
+
+def on_tick(self, tick):
+    try:
+        print  tick.strtime+",0,"+str(tick.bids[0][0])+","+str(tick.bids[0][1])+","+str(tick.asks[0][0])+","+ \
+            str(tick.asks[0][1])+","+str(tick.last_price)+","+str(tick.cum_volume)+","+str(tick.cum_position)+","+str(tick.cum_amount)+","+tick.sec_id
+    except:
+        return
+                                                
+    if __name__ == '__main__':
+        myStrategy = Mystrategy(
+            username='xxx',
+            password='xxx',
+            strategy_id='beae8b1e-c764-11e6-9a2e-a0c58949f6eb',
+            subscribe_symbols='CZCE.CF901.tick',
+            mode=4,
+            td_addr='localhost:8001'
+        )
+        
+        myStrategy.backtest_config(
+            start_time='2018-05-18 08:25:58',
+            end_time='2018-05-19 08:01:02',
+            initial_cash=10000,
+            transaction_ratio=1,
+            commission_ratio=0,
+            slippage_ratio=0,
+            price_type=0
+        )
+    ret = myStrategy.run()
+    f.close()
+    print('exit code: ', ret)
+
+http://www.simnow.com.cn/  获取模拟账户，及模拟交易客户端
+http://www.sfit.com.cn/  交易api相关（可以先不看）
+http://www.czce.com.cn/portal/index.htm  郑州交易所官网
