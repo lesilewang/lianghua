@@ -3,3 +3,54 @@
 2、数据UDP发送，可能存在丢包的情况
 3、当发生成交，你只会收到delete the best offer，然后给出队列！
 4、国内的tickle数据是快照，是多个tick的聚合
+
+
+/**
+* @brief 逐笔报价Tick数据结构
+*
+*/
+typedef struct Tick
+{
+    char                   exchange[LEN_EXCHANGE];   ///<交易所代码
+    char                   sec_id[LEN_SECID];        ///<证券ID
+    double                 utc_time;                 ///<utc时间，精确到毫秒
+    char                   strtime[LEN_ISO_DATATIME];  ///交易时间
+
+    //以下为基础字段
+    float                  last_price;               ///<最新价
+    float                  open;                     ///<开盘价
+    float                  high;                     ///<最高价
+    float                  low;                      ///<最低价
+
+    float                  bid_p1;                   ///<买价一
+    float                  bid_p2;                   ///<买价二
+    float                  bid_p3;                   ///<买价三
+    float                  bid_p4;                   ///<买价四
+    float                  bid_p5;                   ///<买价五
+    int                    bid_v1;                   ///<买量一
+    int                    bid_v2;                   ///<买量二
+    int                    bid_v3;                   ///<买量三
+    int                    bid_v4;                   ///<买量四
+    int                    bid_v5;                   ///<买量五
+    float                  ask_p1;                   ///<卖价一
+    float                  ask_p2;                   ///<卖价二
+    float                  ask_p3;                   ///<卖价三
+    float                  ask_p4;                   ///<卖价四
+    float                  ask_p5;                   ///<卖价五
+    int                    ask_v1;                   ///<卖量一
+    int                    ask_v2;                   ///<卖量二
+    int                    ask_v3;                   ///<卖量三
+    int                    ask_v4;                   ///<卖量四
+    int                    ask_v5;                   ///<卖量五
+
+    double                 cum_volume;               ///<成交总量
+    double                 cum_amount;               ///<成交总金额/最新成交额,累计值
+    long long              cum_position;             ///<合约持仓量(期),累计值
+    double                 last_amount;              ///<瞬时成交额
+    int                    last_volume;              ///<瞬时成交量(中金所提供)
+    float                  upper_limit;              ///涨停价
+    float                  lower_limit;              ///跌停价
+    float                  settle_price;             ///今日结算价
+    int                    trade_type;               ///(保留)交易类型,对应多开,多平等类型
+    float                  pre_close;                ///昨收价
+}Tick;
